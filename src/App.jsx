@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { DndContext, useDraggable, useDroppable, DragOverlay } from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import PlayerSvg from './components/svg/PlayerSvg';
 
@@ -16,7 +16,7 @@ function Button({ children, variant = 'default', size = 'default', className = '
   const sizes = {
     default: 'h-10 px-4 py-2',
     sm: 'h-9 px-3 text-sm'
-  };
+  };  
   
   return (
     <button
@@ -51,7 +51,7 @@ function DraggableItem({ id, children, data, activeId }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="cursor-grab active:cursor-grabbing"
+      className="cursor-grab active:cursor-grabbing touch-none"
     >
       {children}
     </div>
@@ -399,6 +399,15 @@ export default function TacticsBoard() {
   const [showGrid, setShowGrid] = useState(false);
   const fieldRef = useRef(null);
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 0,        // drag starts immediately
+        tolerance: 5,    // finger can move 5px before activating
+      },
+    })
+  );
+
   function handleDragStart(event) {
     setActiveId(event.active.id);
     console.log(event.active.data.current);
@@ -568,7 +577,7 @@ export default function TacticsBoard() {
   }
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="min-h-screen bg-white flex flex-col lg:flex-row">
         {/* Sidebar */}
         <div>
