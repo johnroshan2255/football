@@ -15,7 +15,8 @@ function Button({ children, variant = 'default', size = 'default', className = '
   
   const sizes = {
     default: 'h-10 px-4 py-2',
-    sm: 'h-9 px-3 text-sm'
+    sm: 'h-9 px-3 text-sm',
+    custom: 'text-[.8em] px-2 py-1 h-[3em]'
   };  
   
   return (
@@ -335,11 +336,15 @@ function FootballField({ children, fieldRef, showGrid }) {
     setNodeRef(node);
     if (fieldRef) fieldRef.current = node;
   }}
-  className="relative w-full rounded-lg overflow-hidden border-2 border-gray-400 bg-green-600"
+  className="
+    relative w-full rounded-lg overflow-hidden border-2 border-gray-400 bg-green-600
+    max-h-[600px]          /* mobile only */
+    sm:max-h-none          /* remove limit on larger screens */
+  "
   style={{
     minHeight: "400px",
-    height: "calc(100vh - 150px)", // adjust based on your layout
-    touchAction: "none" // IMPORTANT for mobile drag
+    height: "calc(100vh - 150px)",
+    touchAction: "none"
   }}
 >
       {/* Grid */}
@@ -355,35 +360,47 @@ function FootballField({ children, fieldRef, showGrid }) {
       <div className="absolute inset-2 border-2 border-white rounded-lg z-10"></div>
       
       {/* Center Line - Dashed */}
-      <div className="absolute left-1/2 top-2 bottom-2 w-[2px] transform -translate-x-1/2 z-10"
-        style={{
-          backgroundImage: 'linear-gradient(to bottom, white 50%, transparent 50%)',
-          backgroundSize: '2px 12px'
-        }}
-      />
+      <div className="absolute left-1/2 top-2 bottom-2 w-[2px] transform -translate-x-1/2 z-10
+                md:left-1/2 md:top-2 md:bottom-2 md:w-[2px] md:-translate-x-1/2
+                max-md:left-2 max-md:right-2 max-md:top-1/2 max-md:bottom-auto max-md:w-auto max-md:h-[2px] max-md:-translate-y-1/2 max-md:translate-x-0 
+                md:bg-[length:2px_12px] max-md:bg-[length:12px_2px]"
+     style={{
+       backgroundImage: typeof window !== 'undefined' && window.innerWidth < 768 
+         ? 'linear-gradient(to right, white 50%, transparent 50%)'
+         : 'linear-gradient(to bottom, white 50%, transparent 50%)'
+     }}
+/>
       
       {/* Center Circle */}
       <div className="absolute left-1/2 top-1/2 w-24 h-24 border-2 border-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-10" />
       <div className="absolute left-1/2 top-1/2 w-2 h-2 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 z-10" />
-      
-      {/* Left Penalty Areas */}
-      <div className="absolute left-2 top-1/2 w-16 h-40 border-2 border-white border-l-0 transform -translate-y-1/2 z-10" />
-      <div className="absolute left-2 top-1/2 w-8 h-24 border-2 border-white border-l-0 transform -translate-y-1/2 z-10" />
-      
-      {/* Right Penalty Areas */}
-      <div className="absolute right-2 top-1/2 w-16 h-40 border-2 border-white border-r-0 transform -translate-y-1/2 z-10" />
-      <div className="absolute right-2 top-1/2 w-8 h-24 border-2 border-white border-r-0 transform -translate-y-1/2 z-10" />
-      
+
+      {/* Left Penalty Areas (Top on mobile) */}
+      <div className="absolute left-2 top-1/2 w-16 h-40 border-2 border-white border-l-0 transform -translate-y-1/2 z-10 
+                      md:left-2 md:top-1/2 md:w-16 md:h-40 md:border-l-0 md:border-t-2
+                      max-md:left-1/2 max-md:top-2 max-md:w-40 max-md:h-16 max-md:border-t-0 max-md:border-l-2 max-md:border-r-2 max-md:-translate-x-1/2 max-md:translate-y-0" />
+      <div className="absolute left-2 top-1/2 w-8 h-24 border-2 border-white border-l-0 transform -translate-y-1/2 z-10
+                      md:left-2 md:top-1/2 md:w-8 md:h-24 md:border-l-0 md:border-t-2
+                      max-md:left-1/2 max-md:top-2 max-md:w-24 max-md:h-8 max-md:border-t-0 max-md:border-l-2 max-md:border-r-2 max-md:-translate-x-1/2 max-md:translate-y-0" />
+
+      {/* Right Penalty Areas (Bottom on mobile) */}
+      <div className="absolute right-2 top-1/2 w-16 h-40 border-2 border-white border-r-0 transform -translate-y-1/2 z-10
+                      md:right-2 md:top-1/2 md:w-16 md:h-40 md:border-r-0 md:border-b-2
+                      max-md:right-auto max-md:left-1/2 max-md:bottom-2 max-md:top-auto max-md:w-40 max-md:h-16 max-md:border-b-0 max-md:border-l-2 max-md:border-r-2 max-md:-translate-x-1/2 max-md:translate-y-0" />
+      <div className="absolute right-2 top-1/2 w-8 h-24 border-2 border-white border-r-0 transform -translate-y-1/2 z-10
+                      md:right-2 md:top-1/2 md:w-8 md:h-24 md:border-r-0 md:border-b-2
+                      max-md:right-auto max-md:left-1/2 max-md:bottom-2 max-md:top-auto max-md:w-24 max-md:h-8 max-md:border-b-0 max-md:border-l-2 max-md:border-r-2 max-md:-translate-x-1/2 max-md:translate-y-0" />
+
       {/* Goals - Top and Bottom */}
       <div className="absolute left-1/2 top-0 w-16 h-3 transform -translate-x-1/2 z-10" 
-        style={{
-          background: 'repeating-conic-gradient(#555 0% 25%, #888 0% 50%) 50% / 4px 4px'
-        }}
+          style={{
+            background: 'repeating-conic-gradient(#555 0% 25%, #888 0% 50%) 50% / 4px 4px'
+          }}
       />
       <div className="absolute left-1/2 bottom-0 w-16 h-3 transform -translate-x-1/2 z-10"
-        style={{
-          background: 'repeating-conic-gradient(#555 0% 25%, #888 0% 50%) 50% / 4px 4px'
-        }}
+          style={{
+            background: 'repeating-conic-gradient(#555 0% 25%, #888 0% 50%) 50% / 4px 4px'
+          }}
       />
       
       {children}
@@ -578,16 +595,15 @@ export default function TacticsBoard() {
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="min-h-screen bg-white flex flex-col lg:flex-row">
+      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row">
         {/* Sidebar */}
-        <div>
-        <div className="w-full lg:w-64 bg-white border-b lg:border-r border-gray-200">
-          <div className="p-3 border-b border-gray-200">
+        <div className="w-full h-[200px] overflow-y-auto md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200">
+          {/* <div className="p-3 border-b border-gray-200">
             <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
-          </div>
+          </div> */}
 
           {/* Global Color Picker */}
           <div className="p-3 border-b border-gray-200">
@@ -635,19 +651,9 @@ export default function TacticsBoard() {
                   <EquipmentItem variant="ball" color={activeColor} />
                 </div>
               </DraggableItem>
-              <DraggableItem id="equipment-cone" data={{ type: 'equipment', variant: 'cone' }} activeId={activeId}>
-                <div className=" sm:h-[4em] sm:w-[4em] aspect-square flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200">
-                  <EquipmentItem variant="cone" color={activeColor} />
-                </div>
-              </DraggableItem>
               <DraggableItem id="equipment-triangle" data={{ type: 'equipment', variant: 'triangle' }} activeId={activeId}>
                 <div className=" sm:h-[4em] sm:w-[4em] aspect-square flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200">
                   <EquipmentItem variant="triangle" color={activeColor} />
-                </div>
-              </DraggableItem>
-              <DraggableItem id="equipment-goal-top" data={{ type: 'equipment', variant: 'goal-top' }} activeId={activeId}>
-                <div className=" sm:h-[4em] sm:w-[4em] aspect-square flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200">
-                  <EquipmentItem variant="goal-top" color={activeColor} />
                 </div>
               </DraggableItem>
               <DraggableItem id="equipment-goal-small" data={{ type: 'equipment', variant: 'goal-small' }} activeId={activeId}>
@@ -757,24 +763,23 @@ export default function TacticsBoard() {
 </div>
           </SidebarSection>
         </div>
-        </div>
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Top Bar */}
           <div className="h-16 border-b border-gray-200 flex items-center justify-between px-6">
             <div className="flex gap-3">
-              <Button variant="outline" size="sm" onClick={clearField}>
+              <Button variant="outline" size="custom" onClick={clearField}>
                 Clear all
               </Button>
-              <Button variant="outline" size="sm" onClick={() => setShowGrid(!showGrid)}>
+              <Button variant="outline" size="custom" onClick={() => setShowGrid(!showGrid)}>
                 Toggle grid
               </Button>
-              <Button variant="outline" size="sm" onClick={setDummyFieldItems}>
+              <Button variant="outline" size="custom" onClick={setDummyFieldItems}>
                 Show Dummy Data
               </Button>
             </div>
-            <Button size="sm" onClick={saveBoard}>
+            <Button size="custom" onClick={saveBoard}>
               Save
             </Button>
           </div>
