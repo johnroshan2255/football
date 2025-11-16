@@ -595,9 +595,9 @@ export default function TacticsBoard() {
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row">
+      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row touch-pan-y">
         {/* Sidebar */}
-        <div className="w-full h-[200px] overflow-y-auto md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200 touch-pan-y">
+        <div className="w-full h-[200px] overflow-y-auto md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200">
           {/* <div className="p-3 border-b border-gray-200">
             <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
               <ArrowLeft className="w-4 h-4" />
@@ -765,7 +765,7 @@ export default function TacticsBoard() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col touch-pan-y">
+        <div className="flex-1 flex flex-col">
           {/* Top Bar */}
           <div className="h-16 border-b border-gray-200 flex items-center justify-between px-6">
             <div className="flex gap-3">
