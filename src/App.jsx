@@ -420,7 +420,7 @@ export default function TacticsBoard() {
     useSensor(PointerSensor, {
       activationConstraint: {
         delay: 250,        // Hold for 250ms before drag activates
-        tolerance: 5,      // Can move 5px during the delay
+        tolerance: 0,      // Can move 5px during the delay
       },
     })
   );
