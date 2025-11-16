@@ -52,7 +52,7 @@ function DraggableItem({ id, children, data, activeId }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="cursor-grab active:cursor-grabbing touch-none: pan-y"
+      className="cursor-grab active:cursor-grabbing touch-none"
     >
       {children}
     </div>
@@ -597,7 +597,7 @@ export default function TacticsBoard() {
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row">
         {/* Sidebar */}
-        <div className="w-full h-[200px] overflow-y-auto md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200">
+        <div className="w-full h-[200px] overflow-y-auto md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200 touch-pan-y">
           {/* <div className="p-3 border-b border-gray-200">
             <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
               <ArrowLeft className="w-4 h-4" />
