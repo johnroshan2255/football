@@ -765,7 +765,7 @@ export default function TacticsBoard() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col touch-pan-y">
           {/* Top Bar */}
           <div className="h-16 border-b border-gray-200 flex items-center justify-between px-6">
             <div className="flex gap-3">
