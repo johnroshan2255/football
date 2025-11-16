@@ -422,12 +422,6 @@ export default function TacticsBoard() {
         delay: 250,        // Hold for 250ms before drag activates
         tolerance: 5,      // Can move 5px during the delay
       },
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 250,        // Hold for 250ms before drag activates  
-        tolerance: 5,      // Can move 5px during the delay
-      },
     })
   );
 
@@ -601,7 +595,7 @@ export default function TacticsBoard() {
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row touch-pan-y">
+      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row">
         {/* Sidebar */}
         <div className="w-full h-[200px] overflow-y-auto md:overflow-hidden md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200">
           {/* <div className="p-3 border-b border-gray-200">
