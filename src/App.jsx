@@ -234,27 +234,24 @@ const FootballTacticsBoard = () => {
     }
     
     if (item.type === 'ball') {
-      return (
-        <div
-          key={item.id}
-          className={`absolute ${cursorClass}`}
-          style={{
-            left: item.x - 15,
-            top: item.y - 15,
-          }}
-          onMouseDown={(e) => handleItemMouseDown(e, item)}
-          onTouchStart={(e) => handleTouchStart(e, item)}
-        >
+        return (
           <div
-            className={`w-4 h-4 rounded-full ${isSelected ? 'ring-4 ring-yellow-400' : ''}`}
-            style={{ 
-              background: 'radial-gradient(circle at 30% 30%, #fff, #000)',
-              border: '2px solid #000'
+            key={item.id}
+            className={`absolute ${cursorClass}`}
+            style={{
+              left: item.x - 15,
+              top: item.y - 15,
+              fontSize: '15px',
             }}
-          />
-        </div>
-      );
-    }
+            onMouseDown={(e) => handleItemMouseDown(e, item)}
+            onTouchStart={(e) => handleTouchStart(e, item)}
+          >
+            <span className={isSelected ? "inline-block ring-4 ring-yellow-400 rounded-full" : ""}>
+              ⚽
+            </span>
+          </div>
+        );
+      }
     
     if (item.type.startsWith('arrow')) {
         const rotation = {
