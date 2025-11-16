@@ -417,15 +417,11 @@ export default function TacticsBoard() {
   const fieldRef = useRef(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8, // Require 8px movement before drag starts
-      },
-    }),
+    useSensor(MouseSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
         delay: 250,
-        tolerance: 5,
+        tolerance: 8,
       },
     })
   );
