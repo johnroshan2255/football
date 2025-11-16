@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors, TouchSensor } from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import PlayerSvg from './components/svg/PlayerSvg';
 
@@ -52,7 +52,7 @@ function DraggableItem({ id, children, data, activeId }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="cursor-grab active:cursor-grabbing"
+      className="cursor-grab active:cursor-grabbing touch-none"
     >
       {children}
     </div>
@@ -295,7 +295,7 @@ function PlacedItem({ item, onRemove }) {
       <div
         {...listeners}
         {...attributes}
-        className="cursor-grab active:cursor-grabbing touch-none"
+        className="cursor-grab active:cursor-grabbing"
       >
         {item.type === "shape" && <ShapeItem variant={item.variant} color={item.color} />}
         {item.type === "equipment" && <EquipmentItem variant={item.variant} color={item.color} />}
@@ -419,8 +419,8 @@ export default function TacticsBoard() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 250,        // Hold for 250ms before drag activates
-        tolerance: 0,      // Can move 5px during the delay
+        delay: 150,        // drag starts immediately
+        tolerance: 5,    // finger can move 5px before activating
       },
     })
   );
@@ -595,7 +595,7 @@ export default function TacticsBoard() {
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row">
+      <div className="min-h-screen bg-white flex flex-col-reverse md:flex-row touch-pan-y">
         {/* Sidebar */}
         <div className="w-full h-[200px] overflow-y-auto md:overflow-hidden md:h-auto md:w-64 bg-white border-b lg:border-r border-gray-200">
           {/* <div className="p-3 border-b border-gray-200">
