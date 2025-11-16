@@ -52,7 +52,7 @@ function DraggableItem({ id, children, data, activeId }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="cursor-grab active:cursor-grabbing"
+      className="cursor-grab active:cursor-grabbing touch-none: pan-y"
     >
       {children}
     </div>
