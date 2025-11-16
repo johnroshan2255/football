@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors, TouchSensor, MouseSensor } from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors, TouchSensor } from '@dnd-kit/core';
 import { ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import PlayerSvg from './components/svg/PlayerSvg';
 
@@ -417,11 +417,16 @@ export default function TacticsBoard() {
   const fieldRef = useRef(null);
 
   const sensors = useSensors(
-    useSensor(MouseSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 250,        // Hold for 250ms before drag activates
+        tolerance: 5,      // Can move 5px during the delay
+      },
+    }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 250,
-        tolerance: 8,
+        delay: 250,        // Hold for 250ms before drag activates  
+        tolerance: 5,      // Can move 5px during the delay
       },
     })
   );
