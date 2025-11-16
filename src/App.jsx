@@ -419,7 +419,7 @@ export default function TacticsBoard() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        delay: 0,        // drag starts immediately
+        delay: 150,        // drag starts immediately
         tolerance: 5,    // finger can move 5px before activating
       },
     })
