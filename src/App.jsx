@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, useDraggable, useDroppable, DragOverlay, PointerSensor, useSensor, useSensors, TouchSensor, MouseSensor } from '@dnd-kit/core';
 import { ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import PlayerSvg from './components/svg/PlayerSvg';
 
